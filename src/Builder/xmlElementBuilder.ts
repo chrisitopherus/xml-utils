@@ -8,24 +8,28 @@ export class XMLElementBuilder implements IXMLElementBuilder {
         // empty
     }
 
-    setTag(name: string, value?: string): this {
+    public setName(name: string): this {
         this.element.tagName = name;
-        this.element.tagValue = value || "";
+        return this;
+    }
+
+    public setValue(value: string | number): this {
+        this.element.tagValue = value.toString();
         return this;
     }
     
-    addChild(element: IXMLElement): this {
+    public addChild(element: IXMLElement): this {
         element.parent = this.element;
         this.element.children.push(element);
         return this;
     }
 
-    addAttribute(name: string, value: string): this {
+    public addAttribute(name: string, value: string): this {
         this.element.attributes.push({ name, value });
         return this;
     }
 
-    clear(): this {
+    public clear(): this {
         this.element.tagName = "";
         this.element.tagValue = "";
         this.element.attributes = [];
@@ -34,7 +38,7 @@ export class XMLElementBuilder implements IXMLElementBuilder {
         return this;
     }
 
-    build(): IXMLElement {
+    public build(): IXMLElement {
         return this.element;
     }
 }

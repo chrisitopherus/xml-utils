@@ -35,15 +35,15 @@ export class XMLConverter implements IXMLConverter {
     private elementToString(element: IXMLElement, indent: number) : string {
         let xml = "";
         if (element.children.length === 0) {
-            xml += `${this.addIndent(indent)}<${element.tagName}${this.attributesToString(element.attributes)}>${element.tagValue}</${element.tagName}>\n`;
+            xml += `${this.addIndent(indent)}<${element.name}${this.attributesToString(element.attributes)}>${element.value}</${element.name}>\n`;
         } else {
-            xml += `${this.addIndent(indent)}<${element.tagName}${this.attributesToString(element.attributes)}>\n`;
-            if (element.tagValue !== "") {
-                xml += `${this.addIndent(indent + 1)}${element.tagValue}\n`;
+            xml += `${this.addIndent(indent)}<${element.name}${this.attributesToString(element.attributes)}>\n`;
+            if (element.value !== "") {
+                xml += `${this.addIndent(indent + 1)}${element.value}\n`;
             }
 
             element.children.forEach(child => xml += this.elementToString(child, indent + 1));
-            xml += `${this.addIndent(indent)}</${element.tagName}>\n`;
+            xml += `${this.addIndent(indent)}</${element.name}>\n`;
         }
 
         return xml;

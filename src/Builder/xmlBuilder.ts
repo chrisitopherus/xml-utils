@@ -44,7 +44,7 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
      * @returns The builder with the next step.
      */
     public setRoot(name: string): IBuildXML {
-        this.root.tagName = name;
+        this.root.name = name;
         return this;
     }
 
@@ -161,7 +161,7 @@ export class XMLBuilder implements IXMLBuilder {
      * @returns The builder.
      */
     public setRoot(name: string): this {
-        this.root.tagName = name;
+        this.root.name = name;
         return this;
     }
 

@@ -1,6 +1,5 @@
 import { IXMLElement } from "../Interfaces/IXMLElement";
 import { IXMLElementBuilder } from "../Interfaces/Builder/IXMLElementBuidler";
-import { XMLAttribute } from "../types/xml";
 import { XMLElement } from "../XML/element";
 export class XMLElementBuilder implements IXMLElementBuilder {
     private element = new XMLElement("", "", [], []);
@@ -9,12 +8,12 @@ export class XMLElementBuilder implements IXMLElementBuilder {
     }
 
     public setName(name: string): this {
-        this.element.tagName = name;
+        this.element.name = name;
         return this;
     }
 
     public setValue(value: string | number): this {
-        this.element.tagValue = value.toString();
+        this.element.value = value.toString();
         return this;
     }
     
@@ -30,8 +29,8 @@ export class XMLElementBuilder implements IXMLElementBuilder {
     }
 
     public clear(): this {
-        this.element.tagName = "";
-        this.element.tagValue = "";
+        this.element.name = "";
+        this.element.value = "";
         this.element.attributes = [];
         this.element.children = [];
         this.element.parent = null;

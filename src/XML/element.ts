@@ -3,7 +3,7 @@ import { XMLAttribute } from "../types/xml";
 
 export class XMLElement implements IXMLElement {
     public parent: XMLElement | null = null; 
-    constructor(public tagName: string, public tagValue: string, public attributes: XMLAttribute[], public children: IXMLElement[], parent?: XMLElement | null) {
+    constructor(public name: string, public value: string, public attributes: XMLAttribute[], public children: IXMLElement[], parent?: XMLElement | null) {
         if (parent) {
             this.parent = parent;
         }
@@ -18,6 +18,6 @@ export class XMLElement implements IXMLElement {
     }
 
     public compareTo(other: XMLElement): boolean {
-        return this.tagName === other.tagName && this.tagValue === other.tagValue;
+        return this.name === other.name && this.value === other.value;
     }
 }

@@ -12,3 +12,8 @@ export type XMLProlog = {
 }
 
 export type XMLSearchFn = (item: IXMLElement) => boolean;
+
+export type XMLElementObject = {
+    name: string;
+    value: string;
+}

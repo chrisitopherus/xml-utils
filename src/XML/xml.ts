@@ -32,7 +32,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
         return this.recursiveSearch(
             this.rootElement,
             [],
-            (item) => item.tagName === name
+            (item) => item.name === name
         );
     }
 
@@ -40,7 +40,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
         return this.recursiveSearch(
             this.rootElement,
             [],
-            (item) => item.tagValue === value
+            (item) => item.value === value
         );
     }
 

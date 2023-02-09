@@ -98,6 +98,7 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
  * @description It supports 2 builders:
  * - A stepwise builder which enforces to set the values in a specific order.
  * You create it by using the static method `Create`.
+ * 
  * @example
  * ```
  * const swBuilder = XMLBuilder.Create();
@@ -107,12 +108,14 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
  * ```
  * - A standard builder which provides all the interface methods all the time.
  * You create it by instanciating the class.
+ * 
  * @example
  * ```
  * const builder = new XMLBuilder();
  * builder.setRoot("person")
  * ...
  * ```
+ * 
  * What you choose is up to you. It mainly depends on what you are trying to achieve.
  * 
  * Keep in mind that both interfaces provide the possibility to method chain except the `build()` method.

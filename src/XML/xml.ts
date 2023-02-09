@@ -11,13 +11,13 @@ import { XMLElement } from "./element";
 
 export class XML implements IXML, IComparer<IXMLElement> {
     public prolog: XMLProlog;
-    public rootElement: IXMLElement;
+    public root: IXMLElement;
     private converter: IXMLConverter = new Converter(4);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private static parser: IXMLParser = "" as any;
     constructor(prolog: XMLProlog, rootElement: IXMLElement) {
         this.prolog = prolog;
-        this.rootElement = rootElement;
+        this.root = rootElement;
     }
 
     public static parse(xml: string) : Result<string> {
@@ -30,7 +30,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
 
     public getTagsByName(name: string): IXMLElement[] {
         return this.recursiveSearch(
-            this.rootElement,
+            this.root,
             [],
             (item) => item.name === name
         );
@@ -38,7 +38,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
 
     public getTagsByValue(value: string): IXMLElement[] {
         return this.recursiveSearch(
-            this.rootElement,
+            this.root,
             [],
             (item) => item.value === value
         );
@@ -46,7 +46,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
 
     public getTagsByAttributeName(name: string): IXMLElement[] {
         return this.recursiveSearch(
-            this.rootElement,
+            this.root,
             [],
             (item) => item.hasAttributeName(name)
         );
@@ -54,7 +54,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
 
     public getTagsByAttributeValue(value: string): IXMLElement[] {
         return this.recursiveSearch(
-            this.rootElement,
+            this.root,
             [],
             (item) => item.hasAttributeValue(value)
         );
@@ -62,11 +62,27 @@ export class XML implements IXML, IComparer<IXMLElement> {
 
     public getTagsByAttribute(attribute: XMLAttribute): IXMLElement[] {
         return this.recursiveSearch(
-            this.rootElement,
+            this.root,
             [],
             (item) => item.hasAttributeName(attribute.name)
                 && item.hasAttributeValue(attribute.value.toString())
         );
+    }
+
+    public search(searchFn: XMLSearchFn): Result<IXMLElement[]> {
+        try {
+            const result = this.recursiveSearch(this.root, [], searchFn);
+            return new Result({
+                success: true,
+                data: result
+            });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            return new Result({
+                success: false,
+                error: error.message
+            });
+        }
     }
 
     public compare(item: IComparable<XMLElement>, other: IComparable<XMLElement>): boolean {

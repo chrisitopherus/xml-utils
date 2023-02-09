@@ -1,8 +1,8 @@
-import { IXMLConvertable } from "../Interfaces/IXML";
+
 import { IXMLConverter } from "../Interfaces/Converter/IXMLConverter";
-import { IXMLElement } from "../Interfaces/IXMLElement";
+import { IXMLConvertable } from "../Interfaces/IXMLConvertable";
 import { Result } from "../Result/result";
-import { XMLAttribute, XMLProlog } from "../types/xml";
+import { XMLAttribute, XMLProlog, XMLElementObject } from "../types/xml";
 
 export class XMLConverter implements IXMLConverter {
     private indent: string;
@@ -13,7 +13,7 @@ export class XMLConverter implements IXMLConverter {
     convertObjToXml(xmlObj: IXMLConvertable): Result<string> {
         let xml = this.prologToString(xmlObj.prolog);
         try {
-            xml += `\r\n${this.elementToString(xmlObj.rootElement, 0)}`;
+            xml += `\r\n${this.elementToString(xmlObj.root, 0)}`;
             return new Result({
                 success: true,
                 data: xml
@@ -32,7 +32,7 @@ export class XMLConverter implements IXMLConverter {
         return `<?xml version="${prolog.version}" encoding="${prolog.encoding}"?>`;
     }
 
-    private elementToString(element: IXMLElement, indent: number) : string {
+    private elementToString(element: XMLElementObject, indent: number) : string {
         let xml = "";
         if (element.children.length === 0) {
             xml += `${this.addIndent(indent)}<${element.name}${this.attributesToString(element.attributes)}>${element.value}</${element.name}>\n`;

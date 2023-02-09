@@ -1,5 +1,5 @@
 import { IConverter } from "../Interfaces/Converter/IConverter";
-import { IXMLConvertable } from "../Interfaces/IXML";
+import { IXMLConvertable } from "../Interfaces/IXMLConvertable";
 import { Result } from "../Result/result"; 
 import { XMLConverter } from "./xmlConverter";
 

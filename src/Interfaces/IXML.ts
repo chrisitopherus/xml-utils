@@ -1,10 +1,7 @@
 import { Result } from "../Result/result";
-import { XMLAttribute, XMLProlog } from "../types/xml";
+import { XMLAttribute, XMLSearchFn } from "../types/xml";
+import { IXMLConvertable } from "./IXMLConvertable";
 import { IXMLElement } from "./IXMLElement";
-export interface IXMLConvertable {
-    prolog: XMLProlog;
-    rootElement: IXMLElement;
-}
 
 export interface IXML extends IXMLConvertable {
     toXML() : Result<string>;
@@ -13,4 +10,5 @@ export interface IXML extends IXMLConvertable {
     getTagsByAttributeValue(value: string) : IXMLElement[];
     getTagsByAttribute(attribute: XMLAttribute) : IXMLElement[];
     getTagsByValue(value: string) : IXMLElement[];
+    search(searchFn: XMLSearchFn): Result<IXMLElement[]>
 }

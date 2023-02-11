@@ -25,7 +25,7 @@ export class XML implements IXML, IComparer<IXMLElement> {
     }
 
     public toXML(): Result<string> {
-        return this.converter.convertObjToXml(this);
+        return this.converter.obj2xml(this);
     }
 
     public getTagsByName(name: string): IXMLElement[] {

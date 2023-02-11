@@ -10,7 +10,7 @@ export class XMLConverter implements IXMLConverter {
         this.indent = " ".repeat(indentSize);
     }
 
-    convertObjToXml(xmlObj: IXMLConvertable): Result<string> {
+    obj2xml(xmlObj: IXMLConvertable): Result<string> {
         let xml = this.prologToString(xmlObj.prolog);
         try {
             xml += `\r\n${this.elementToString(xmlObj.root, 0)}`;

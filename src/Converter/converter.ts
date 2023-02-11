@@ -9,8 +9,8 @@ export class Converter implements IConverter {
         this.xmlConverter = new XMLConverter(indentSize);
     }
 
-    public convertObjToXml(xmlObj: IXMLConvertable) : Result<string> {
-        return this.xmlConverter.convertObjToXml(xmlObj);
+    public obj2xml(xmlObj: IXMLConvertable) : Result<string> {
+        return this.xmlConverter.obj2xml(xmlObj);
     }   
 
 }

@@ -114,7 +114,7 @@ const xmlObj: XMLObject = {
     }
 };
 
-const result4 = converter.convertObjToXml(xmlObj).retrieve();
+const result4 = converter.obj2xml(xmlObj).retrieve();
 if (!result4.success) {
     console.error(result4.error);
 } else {

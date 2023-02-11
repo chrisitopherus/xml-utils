@@ -1,5 +1,7 @@
 import { XMLBuilder } from "./Builder/xmlBuilder";
 import { XMLElementBuilder } from "./Builder/xmlElementBuilder";
+import { Converter } from "./Converter/converter";
+import { XMLObject } from "./types/xml";
 
 const xmlBuilder = XMLBuilder.Create();
 const xb = new XMLBuilder();
@@ -76,3 +78,45 @@ if (!result3.success) {
 }
 
 console.info(xml.getTagsByName("age"));
+
+const converter = new Converter(4);
+
+const xmlObj: XMLObject = {
+    prolog: {
+        encoding: "UTF-8",
+        version: "1.1"
+    },
+    root: {
+        name: "root",
+        value: "test",
+        attributes: [],
+        children: [
+            {
+                name: "person",
+                value: "",
+                attributes: [],
+                children: [
+                    {
+                        name: "name",
+                        value: "Christopher",
+                        attributes: [],
+                        children: []
+                    },
+                    {
+                        name: "age",
+                        value: "20",
+                        attributes: [],
+                        children: []
+                    },
+                ]
+            }
+        ]
+    }
+};
+
+const result4 = converter.convertObjToXml(xmlObj).retrieve();
+if (!result4.success) {
+    console.error(result4.error);
+} else {
+    console.info(result4.data);
+}

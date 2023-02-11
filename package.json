@@ -6,6 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "test": "jest --verbose --silent",
+    "start": "ts-node ./src/index.ts",
     "build": "tsc",
     "dev": "tsc -w"
   },

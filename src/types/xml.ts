@@ -43,7 +43,7 @@ export type XMLElementObject = {
     name: string;
     value: string;
     attributes: XMLAttribute[];
-    children: IXMLElement[];
+    children: XMLElementObject[];
 }
 
 /**

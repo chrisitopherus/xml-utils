@@ -1,6 +1,6 @@
 
 import { IXMLConverter } from "../Interfaces/Converter/IXMLConverter";
-import { IXMLConvertable } from "../Interfaces/IXMLConvertable";
+import { IXMLConvertable } from "../Interfaces/Converter/IXMLConvertable";
 import { Result } from "../Result/result";
 import { XMLAttribute, XMLProlog, XMLElementObject } from "../types/xml";
 

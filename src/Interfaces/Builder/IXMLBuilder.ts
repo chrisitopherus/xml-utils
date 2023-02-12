@@ -54,7 +54,7 @@ export interface IBuildXML {
     addChild(element: IXMLElement) : IBuildXML;
 
     /**
-     * Method that resets the state of the builder to default by resetting all changes.
+     * Method for resetting the state of the builder.
      * @returns The first step of the builder.
      */
     clear() : ISpecifyVersion;
@@ -106,7 +106,7 @@ export interface IXMLBuilder {
     addChild(element: IXMLElement) : this;
 
     /**
-     * Method that resets the state of the builder to default by resetting all changes.
+     * Method for resetting the state of the builder.
      * @returns The builder.
      */
     clear() : this;

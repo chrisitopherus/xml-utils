@@ -2,6 +2,8 @@ import { XMLVersion} from "../../types/xml";
 import { IXML } from "../IXML";
 import { IXMLElement } from "../IXMLElement";
 
+// The file declares interfaces that represent builders for xml.
+
 /**
  * Represents the version setting step of the builder.
  * @interface
@@ -69,12 +71,30 @@ export interface IBuildXML {
 /**
  * Represents a stepwise builder for xml.
  * @interface
+ * 
+ * @description
+ * Pros:
+ * - Ensures that the user sets all the values in a certain order.
+ * - Prevents using other methods before a certain step is reached.
+ * - Prevents using a method multiple times in the same process of building.
+ * 
+ * Cons:
+ * - It is not possible to clear the builder after it has builded the xml.
+ * - In order to clear, it would be possible to "pseudo" build an xml again to then call the `clear()` method.
  */
 export interface IXMLStepwiseBuilder extends ISpecifyVersion, ISpecifyEncoding, ISpecifyRoot, IBuildXML {}
 
 /**
  * Represents a builder for xml.
  * @interface
+ * @description
+ * Pros:
+ * - Is easily clearable through the `clear()` method.
+ * - Provides a flexible interface by giving access to all methods.
+ * 
+ * Cons:
+ * - The user could be using the same methods multiple times in the same process of building, which could lead to unnecessary calls.
+ * - Does not force the user to set meta information which could lead sometimes to problems. 
  */
 export interface IXMLBuilder {
     /**

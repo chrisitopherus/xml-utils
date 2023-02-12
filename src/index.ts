@@ -1,6 +1,7 @@
 import { XMLBuilder } from "./Builder/xmlBuilder";
 import { XMLElementBuilder } from "./Builder/xmlElementBuilder";
 import { Converter } from "./Converter/converter";
+import { XMLParser } from "./Parser/xmlParser";
 import { XMLObject } from "./types/xml";
 
 const xmlBuilder = XMLBuilder.Create();
@@ -120,3 +121,6 @@ if (!result4.success) {
 } else {
     console.info(result4.data);
 }
+
+const xml5 = new XMLParser().xml2obj(xmlObj);
+console.log(xml5.getTagsByName("name"));

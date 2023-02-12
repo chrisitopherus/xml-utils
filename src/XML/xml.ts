@@ -2,26 +2,38 @@ import { Converter } from "../Converter/converter";
 import { IXML } from "../Interfaces/IXML";
 import { IXMLConverter } from "../Interfaces/Converter/IXMLConverter";
 import { Result } from "../Result/result";
-import { XMLAttribute, XMLProlog, XMLSearchFn } from "../types/xml";
+import { XMLAttribute, XMLObject, XMLProlog, XMLSearchFn } from "../types/xml";
 import { IXMLElement } from "../Interfaces/IXMLElement";
-import { IXMLParser } from "../Interfaces/IXMLParser";
 import { IComparer } from "../Interfaces/IComparer";
 import { IComparable } from "../Interfaces/IComparable";
 import { XMLElement } from "./element";
+import { IXMLParser } from "../Interfaces/Parser/IXMLParser";
+import { Parser } from "../Parser/parser";
 
 export class XML implements IXML, IComparer<IXMLElement> {
     public prolog: XMLProlog;
     public root: IXMLElement;
     private converter: IXMLConverter = new Converter(4);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    private static parser: IXMLParser = "" as any;
+    private static parser: IXMLParser = new Parser();
     constructor(prolog: XMLProlog, rootElement: IXMLElement) {
         this.prolog = prolog;
         this.root = rootElement;
     }
 
-    public static parse(xml: string) : Result<string> {
-        return this.parser.parseXMLToObj(xml);
+    public static parse(xml: string | XMLObject) : Result<IXML> {
+        try {
+            return new Result({
+                success: true,
+                data: this.parser.xml2obj(xml)
+            });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            return new Result({
+                success: false,
+                error: error.message
+            });
+        }
     }
 
     public toXML(): Result<string> {

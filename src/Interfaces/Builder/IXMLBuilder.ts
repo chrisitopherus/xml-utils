@@ -54,7 +54,7 @@ export interface IBuildXML {
     addChild(element: IXMLElement) : IBuildXML;
 
     /**
-     * Method that resets the state to default by resetting all changes.
+     * Method that resets the state of the builder to default by resetting all changes.
      * @returns The first step of the builder.
      */
     clear() : ISpecifyVersion;
@@ -77,10 +77,43 @@ export interface IXMLStepwiseBuilder extends ISpecifyVersion, ISpecifyEncoding, 
  * @interface
  */
 export interface IXMLBuilder {
+    /**
+     * Method to specify the version of the xml document.
+     * @param version The version of the xml document.
+     * @returns The builder.
+     */
     setVersion(version: XMLVersion) : this;
+
+    /**
+     * Method to specify the encoding of the xml document.
+     * @param encoding The encoding of the xml document.
+     * @returns The builder.
+     */
     setEncoding(encoding: string) : this;
+
+    /**
+     * Method to specify the name of the root element.
+     * @param name Name of the root element.
+     * @returns The builder with the next step.
+     */
     setRoot(name: string) : this;
+
+    /**
+     * Method for adding a new child to the root element.
+     * @param element Element to be added.
+     * @returns The builder.
+     */
     addChild(element: IXMLElement) : this;
+
+    /**
+     * Method that resets the state of the builder to default by resetting all changes.
+     * @returns The builder.
+     */
     clear() : this;
+
+    /**
+     * Method for building the xml.
+     * @returns The xml.
+     */
     build() : IXML;
 }

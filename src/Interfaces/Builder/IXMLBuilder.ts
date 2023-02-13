@@ -94,7 +94,7 @@ export interface IXMLStepwiseBuilder extends ISpecifyVersion, ISpecifyEncoding, 
  * 
  * Cons:
  * - The user could be using the same methods multiple times in the same process of building, which could lead to unnecessary calls.
- * - Does not force the user to set meta information which could lead sometimes to problems. 
+ * - Does not force the user to set meta information which could lead sometimes to problems.
  */
 export interface IXMLBuilder {
     /**

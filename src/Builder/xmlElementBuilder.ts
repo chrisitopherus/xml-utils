@@ -1,6 +1,10 @@
 import { IXMLElement } from "../Interfaces/IXMLElement";
 import { IXMLElementBuilder } from "../Interfaces/Builder/IXMLElementBuidler";
 import { XMLElement } from "../XML/element";
+import { copyArrayRef } from "../utils/copyArrayRef";
+
+// Contains the XMLElementBuilder class for building xml elements.
+
 export class XMLElementBuilder implements IXMLElementBuilder {
     private element = new XMLElement("", "", [], []);
     constructor() {
@@ -38,6 +42,12 @@ export class XMLElementBuilder implements IXMLElementBuilder {
     }
 
     public build(): IXMLElement {
-        return this.element;
+        return new XMLElement(
+            this.element.name,
+            this.element.value,
+            copyArrayRef(this.element.attributes),
+            copyArrayRef(this.element.children),
+            this.element.parent
+        );
     }
 }

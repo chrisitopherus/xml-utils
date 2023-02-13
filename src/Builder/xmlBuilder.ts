@@ -4,10 +4,20 @@ import { XML } from "../XML/xml";
 import { XMLVersion, XMLProlog} from "../types/xml";
 import { IXMLElement } from "../Interfaces/IXMLElement";
 import { XMLElement } from "../XML/element";
+import { copyArrayRef } from "../utils/copyArrayRef";
 
 /**
  * Represents a stepwise builder for xml.
  * @class
+ * @description
+ * Pros:
+ * - Ensures that the user sets all the values in a certain order.
+ * - Prevents using other methods before a certain step is reached.
+ * - Prevents using a method multiple times in the same process of building.
+ * 
+ * Cons:
+ * - It is not possible to clear the builder after it has builded the xml.
+ * - In order to clear, it would be possible to "pseudo" build an xml again to then call the `clear()` method.
  */
 class StepwiseBuilder implements IXMLStepwiseBuilder {
     private version : XMLVersion = "1.0";
@@ -60,13 +70,13 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
     }
 
     /**
-     * Method that resets the state to default by resetting all changes.
+     * Method for resetting the state to default.
      * @returns The first step of the builder.
      */
     public clear() : ISpecifyVersion {
         this.version = "1.0";
         this.encoding = "";
-        this.root = new XMLElement("root", "", [], []);
+        this.resetRoot();
         return this;
     }
 
@@ -75,11 +85,16 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
      * @returns The xml.
      */
     public build(): IXML {
-        return new XML(this.createProlog(), this.root);
+        return new XML(this.createProlog(), new XMLElement(
+            this.root.name,
+            this.root.value,
+            copyArrayRef(this.root.attributes),
+            copyArrayRef(this.root.children)
+        ));
     }
 
     /**
-     * Method that creates a prolog object.
+     * Method for creating a prolog object.
      * @private
      * @returns A prolog object.
      */
@@ -88,6 +103,19 @@ class StepwiseBuilder implements IXMLStepwiseBuilder {
             version: this.version,
             encoding: this.encoding
         };
+    }
+
+    /**
+     * Method for resetting the root element to default.
+     * @private
+     * @returns The builder.
+     */
+    private resetRoot() {
+        this.root.name = "root";
+        this.root.value = "";
+        this.root.attributes = [];
+        this.root.children = [];
+        return this;
     }
 }
 
@@ -180,13 +208,13 @@ export class XMLBuilder implements IXMLBuilder {
     }
 
     /**
-     * Method that resets the state to default by resetting all changes.
+     * Method for resetting the state to default.
      * @returns The builder.
      */
     public clear(): this {
         this.version = "1.0";
         this.encoding = "";
-        this.root = new XMLElement("root", "", [], []);
+        this.resetRoot();
         return this;
     }
 
@@ -195,12 +223,17 @@ export class XMLBuilder implements IXMLBuilder {
      * @returns The xml.
      */
     public build(): IXML {
-        return new XML(this.createProlog(), this.root);
+        return new XML(this.createProlog(), new XMLElement(
+            this.root.name,
+            this.root.value,
+            copyArrayRef(this.root.attributes),
+            copyArrayRef(this.root.children)
+        ));
     }
 
 
     /**
-     * Method that creates a prolog object.
+     * Method for creating a prolog object.
      * @private
      * @returns A Prolog object.
      */
@@ -209,5 +242,18 @@ export class XMLBuilder implements IXMLBuilder {
             version: this.version,
             encoding: this.encoding
         };
+    }
+
+    /**
+     * Method for resetting the root element to default.
+     * @private
+     * @returns The builder.
+     */
+    private resetRoot() {
+        this.root.name = "root";
+        this.root.value = "";
+        this.root.attributes = [];
+        this.root.children = [];
+        return this;
     }
 }
